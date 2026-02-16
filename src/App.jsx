@@ -8,6 +8,7 @@ function App() {
 
   function addTask(taskText) {
     const newTask = {
+      id: Date.now(),
       text: taskText,
       completed: false,
     };
@@ -15,11 +16,15 @@ function App() {
     setTasks([...tasks, newTask]);
   }
 
+  function deleteTask(id) {
+    setTasks(tasks.filter(task => task.id !== id));
+  }
+
   return (
     <div>
       <Header />
       <TaskForm addTask={addTask} />
-      <TaskList tasks={tasks} />
+      <TaskList tasks={tasks} deleteTask={deleteTask} />
     </div>
   );
 }

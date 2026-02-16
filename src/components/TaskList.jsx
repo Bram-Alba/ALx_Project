@@ -1,10 +1,14 @@
 import TaskItem from "./TaskItem";
 
-function TaskList({ tasks }) {
+function TaskList({ tasks, deleteTask }) {
   return (
     <ul>
-      {tasks.map((task, index) => (
-        <TaskItem key={index} task={task} />
+      {tasks.map(task => (
+        <TaskItem
+          key={task.id}
+          task={task}
+          deleteTask={deleteTask}
+        />
       ))}
     </ul>
   );

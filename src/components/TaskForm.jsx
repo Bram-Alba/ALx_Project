@@ -21,7 +21,9 @@ function TaskForm({ addTask }) {
         onChange={(e) => setTaskText(e.target.value)}
       />
 
-      <button type="submit">Add Task</button>
+      <button type="submit">
+        Add Task
+      </button>
     </form>
   );
 }
