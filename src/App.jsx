@@ -32,19 +32,24 @@ function App() {
   }
 
   return (
-    <div>
-      <Header />
-      <TaskForm addTask={addTask} />
+    <div className="min-h-screen bg-gray-100 flex justify-center">
 
-      {/* ✅ PASS toggleTask HERE */}
-      <TaskList
-        tasks={tasks}
-        deleteTask={deleteTask}
-        toggleTask={toggleTask}
-      />
+      <div className="w-full max-w-md p-6">
+
+        <Header />
+        <TaskForm addTask={addTask} />
+
+        <TaskList
+          tasks={tasks}
+          deleteTask={deleteTask}
+          toggleTask={toggleTask}
+        />
+
+      </div>
 
     </div>
   );
 }
+
 
 export default App;
