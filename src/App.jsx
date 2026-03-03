@@ -20,14 +20,57 @@ function App() {
   setTasks(tasks.filter(task => !task.completed));
 }
 
+  // GlobalTimerEngine
+useEffect(() => {
+  const interval = setInterval(() => {
+    setTasks(prevTasks =>
+      prevTasks.map(task =>
+        task.running
+          ? { ...task, time: task.time + 1 }
+          : task
+      )
+    );
+  }, 1000);
+
+  return () => clearInterval(interval);
+}, []);
+
+  // StartTimer
+function startTimer(id) {
+  setTasks(prevTasks =>
+    prevTasks.map(task =>
+      task.id === id ? { ...task, running: true } : task
+    )
+  );
+}
+
+  // PauseTimer
+function pauseTimer(id) {
+  setTasks(prevTasks =>
+    prevTasks.map(task =>
+      task.id === id ? { ...task, running: false } : task
+    )
+  );
+}
+
+  // ResetTimer
+function resetTimer(id) {
+  setTasks(prevTasks =>
+    prevTasks.map(task =>
+      task.id === id ? { ...task, time: 0, running: false } : task
+    )
+  );
+}
 
   // Add task
   function addTask(taskText) {
     const newTask = {
-      id: Date.now(),
-      text: taskText,
-      completed: false,
-    };
+  id: Date.now(),
+  text: taskText,
+  completed: false,
+  time: 0,        // seconds
+  running: false
+  };
 
     setTasks(prevTasks => [...prevTasks, newTask]);
   }
@@ -111,16 +154,23 @@ function App() {
         tasks={filteredTasks}
         deleteTask={deleteTask}
         toggleTask={toggleTask}
+        startTimer={startTimer}
+        pauseTimer={pauseTimer}
+        resetTimer={resetTimer}
       />
 
     {/* Clear completed button */}
-    <button onClick={clearCompleted}>
-      Clear Completed
-    </button>
+    <button
+         onClick={clearCompleted}
+         className="mt-4 w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded"
+         >
+         Clear Completed
+     </button>
 
     {/* Task counter */}
-    <p>{activeCount} tasks remaining</p>
-
+   <p className="text-center text-gray-600 mt-2">
+    {activeCount} task{activeCount !== 1 ? "s" : ""} remaining
+   </p>
 
     </div>
   );

@@ -1,7 +1,6 @@
 import TaskItem from "./TaskItem";
 
-function TaskList({ tasks, deleteTask, toggleTask }) {
-  return (
+function TaskList({ tasks, deleteTask, toggleTask, startTimer, pauseTimer, resetTimer }) {  return (
     <ul className="mt-4">
       {tasks.length === 0 ? (
         <p className="text-gray-500 text-center">
@@ -14,6 +13,9 @@ function TaskList({ tasks, deleteTask, toggleTask }) {
             task={task}
             deleteTask={deleteTask}
             toggleTask={toggleTask}
+            startTimer={startTimer}
+            pauseTimer={pauseTimer}
+            resetTimer={resetTimer}
           />
         ))
       )}
