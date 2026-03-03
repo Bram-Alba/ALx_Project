@@ -3,7 +3,9 @@ function TaskItem({ task, deleteTask, toggleTask, startTimer, pauseTimer, resetT
 const remaining = task.duration - task.time;
 const minutes = Math.floor(remaining / 60);
 const seconds = remaining % 60;
-
+const progress = task.duration
+  ? Math.min((task.time / task.duration) * 100, 100)
+  : 0;  
   return (
     <li className="flex flex-col bg-white shadow-md rounded-lg p-3 mb-3">
 
@@ -40,7 +42,7 @@ const seconds = remaining % 60;
       </div>
 
       {/* TIMER DISPLAY */}
-      <div className="flex items-center justify-between mt-3">
+       <div className="flex items-center justify-between mt-3">
 
         <span className="font-mono text-lg">
           {minutes}:{seconds.toString().padStart(2, "0")}
@@ -71,9 +73,17 @@ const seconds = remaining % 60;
             Reset
           </button>
 
-        </div>
+              </div>
 
-      </div>
+            </div>
+            
+            {/* PROGRESS BAR */}
+            <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+              <div
+                className="bg-blue-500 h-2 rounded-full transition-all duration-500"
+                style={{ width: `${progress}%` }}
+              ></div>
+             </div>
 
     </li>
   );

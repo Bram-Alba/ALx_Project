@@ -66,18 +66,18 @@ function resetTimer(id) {
 }
 
   // Add task
-  function addTask(taskText) {
-    const newTask = {
-  id: Date.now(),
-  text: taskText,
-  completed: false,
-   time: 0,
-   duration: 1500, // 25 minutes default 
-   running: false
+ function addTask(taskText) {
+  const newTask = {
+    id: Date.now(),
+    text: taskText,
+    completed: false,
+    time: 0,
+    duration: 1500, // 25 minutes
+    running: false
   };
 
-    setTasks(prevTasks => [...prevTasks, newTask]);
-  }
+  setTasks(prevTasks => [...prevTasks, newTask]);
+}
 
   // Delete task
   function deleteTask(id) {
