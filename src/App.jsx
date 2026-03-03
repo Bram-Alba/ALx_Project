@@ -24,11 +24,12 @@ function App() {
 useEffect(() => {
   const interval = setInterval(() => {
     setTasks(prevTasks =>
-      prevTasks.map(task =>
-        task.running
-          ? { ...task, time: task.time + 1 }
-          : task
-      )
+      prevTasks.map(task => {
+        if (task.running && task.time < task.duration) {
+          return { ...task, time: task.time + 1 };
+        }
+        return task;
+      })
     );
   }, 1000);
 
@@ -39,7 +40,9 @@ useEffect(() => {
 function startTimer(id) {
   setTasks(prevTasks =>
     prevTasks.map(task =>
-      task.id === id ? { ...task, running: true } : task
+      task.id === id && task.time < task.duration
+        ? { ...task, running: true }
+        : task
     )
   );
 }
@@ -68,8 +71,9 @@ function resetTimer(id) {
   id: Date.now(),
   text: taskText,
   completed: false,
-  time: 0,        // seconds
-  running: false
+   time: 0,
+   duration: 1500, // 25 minutes default 
+   running: false
   };
 
     setTasks(prevTasks => [...prevTasks, newTask]);

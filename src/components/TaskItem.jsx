@@ -1,7 +1,8 @@
 function TaskItem({ task, deleteTask, toggleTask, startTimer, pauseTimer, resetTimer }) {
 
-  const minutes = Math.floor(task.time / 60);
-  const seconds = task.time % 60;
+const remaining = task.duration - task.time;
+const minutes = Math.floor(remaining / 60);
+const seconds = remaining % 60;
 
   return (
     <li className="flex flex-col bg-white shadow-md rounded-lg p-3 mb-3">
