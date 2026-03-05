@@ -10,21 +10,24 @@ The Daily Task Planner is a React-based web application that helps users manage 
 - Delete tasks
 - Deadline timer and notification system
 - Data persistence using localStorage
+- Filter tasks (All / Active / Completed)
+- Timer for each task
+- Progress bar showing task time
 
 ## Project Structure
-
+src/components/
+- Header.jsx
+- TaskForm.jsx
+- TaskList.jsx
+- TaskItem.jsx
 - App.jsx
-- Header component
-- TaskForm component
-- TaskList component
-- TaskItem component
 
 ## Built With
 
 - React
 - Vite
 - JavaScript
-- CSS
+- Tailwind CSS
 
 ## Repository
 
