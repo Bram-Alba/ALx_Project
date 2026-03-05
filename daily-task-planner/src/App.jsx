@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import TaskForm from "./components/TaskForm";
 import TaskList from "./components/TaskList";
-import Settings from "./components/Settings";
+import useAlertBeep from "./hooks/useAlertBeep";
 
 function App() {
   const [tasks, setTasks] = useState(() => {
@@ -11,21 +11,18 @@ function App() {
   });
 
   const [filter, setFilter] = useState("all");
-  const [showSettings, setShowSettings] = useState(false);
-  const [defaultDuration, setDefaultDuration] = useState(() => {
-    return parseInt(localStorage.getItem("defaultDuration")) || 1500;
-  });
+  const [defaultDuration, setDefaultDuration] = useState(1500); // 25 mins
 
   const activeCount = tasks.filter(task => !task.completed).length;
 
-  function clearCompleted() {
-    setTasks(tasks.filter(task => !task.completed));
+  useAlertBeep(tasks);
+
+  function handleDurationChange(newDuration) {
+    setDefaultDuration(newDuration);
   }
 
-  function saveSettings(newDuration) {
-    setDefaultDuration(newDuration);
-    localStorage.setItem("defaultDuration", newDuration);
-    setShowSettings(false);
+  function clearCompleted() {
+    setTasks(tasks.filter(task => !task.completed));
   }
 
   useEffect(() => {
@@ -34,6 +31,9 @@ function App() {
         prevTasks.map(task => {
           if (task.running && task.time < task.duration) {
             return { ...task, time: task.time + 1 };
+          }
+          if (task.running && task.time >= task.duration) {
+            return { ...task, running: false };
           }
           return task;
         })
@@ -75,7 +75,7 @@ function App() {
       completed: false,
       time: 0,
       duration: defaultDuration,
-      running: false
+      running: false,
     };
     setTasks(prevTasks => [...prevTasks, newTask]);
   }
@@ -110,15 +110,10 @@ function App() {
     <div className="app-bg">
       <div className="card">
 
-        <Header onSettingsClick={() => setShowSettings(true)} />
-
-        {showSettings && (
-          <Settings
-            defaultDuration={defaultDuration}
-            onSave={saveSettings}
-            onClose={() => setShowSettings(false)}
-          />
-        )}
+        <Header
+          defaultDuration={defaultDuration}
+          onDurationChange={handleDurationChange}
+        />
 
         <TaskForm addTask={addTask} />
 

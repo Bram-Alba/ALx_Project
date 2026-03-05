@@ -558,3 +558,87 @@ body {
   background: #e6b800;
   transform: scale(1.02);
 }
+
+/* ── Settings Panel ── */
+.settings-panel {
+  background: #f0f6ff;
+  border-bottom: 1.5px solid #d6e4f7;
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: slideDown 0.2s ease;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.settings-panel__title {
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: #1e3a5f;
+}
+
+.settings-panel__row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+  color: #444;
+  font-weight: 600;
+}
+
+.settings-panel__input {
+  width: 70px;
+  border: 1.5px solid #c5d8f0;
+  border-radius: 10px;
+  padding: 6px 10px;
+  font-size: 0.95rem;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  color: #1e3a5f;
+  background: #fff;
+  outline: none;
+  text-align: center;
+}
+
+.settings-panel__input:focus {
+  border-color: #4a90d9;
+}
+
+.settings-panel__actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.settings-panel__cancel {
+  padding: 6px 18px;
+  border-radius: 20px;
+  border: 1.5px solid #c5d8f0;
+  background: #fff;
+  color: #555;
+  font-weight: 700;
+  font-family: 'Nunito', sans-serif;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.settings-panel__save {
+  padding: 6px 18px;
+  border-radius: 20px;
+  border: none;
+  background: #4a90d9;
+  color: #fff;
+  font-weight: 700;
+  font-family: 'Nunito', sans-serif;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.2s;
+}
+
+.settings-panel__save:hover {
+  background: #357abd;
+}
